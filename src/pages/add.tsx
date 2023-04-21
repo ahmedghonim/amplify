@@ -1,8 +1,9 @@
-import { API, graphqlOperation } from "aws-amplify";
+import { API } from "aws-amplify";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { CreateTodoInput, CreateTodoMutation } from "~/API";
 import { createTodo } from "~/graphql/mutations";
-
+import { GraphQLQuery } from "@aws-amplify/api";
 const AddTodo = () => {
   const { push } = useRouter();
   const [name, setName] = useState("");
@@ -10,8 +11,14 @@ const AddTodo = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const todo = { name, description };
-      await API.graphql(graphqlOperation(createTodo, { input: todo }));
+      const todo: CreateTodoInput = { name, description };
+      await API.graphql<GraphQLQuery<CreateTodoMutation>>({
+        query: createTodo,
+        variables: { input: todo },
+        authMode: "AMAZON_COGNITO_USER_POOLS",
+      });
+
+      console.log("todo >>>> ", todo);
       setName("");
       setDescription("");
       push("/");
