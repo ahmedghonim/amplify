@@ -39,5 +39,6 @@ export async function getStaticProps() {
     props: {
       todos: todos?.data,
     },
+    revalidate: 10,
   };
 }
