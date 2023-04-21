@@ -12,11 +12,8 @@
       "AmplifyAppId": "d3s11anafwlfkl"
     },
     "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d3s11anafwlfkl",
-          "type": "manual"
-        }
+      "api": {
+        "amplifytodo": {}
       }
     }
   }
