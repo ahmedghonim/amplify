@@ -22,7 +22,8 @@ export default function Home({ todos }: { todos: ListTodosQuery }) {
       <ul className="flex flex-col space-y-4">
         {todos.listTodos?.items?.map((todo) => (
           <li key={todo?.id} className="flex items-center space-x-4">
-            <span className="text-2xl">{todo?.name}</span>
+            <span className="text-2xl">{todo?.name}</span> :=
+            <span className="text-2xl">{todo?.description}</span>
           </li>
         ))}
       </ul>
@@ -34,7 +35,6 @@ export async function getStaticProps() {
   const todos = await API.graphql<GraphQLQuery<ListTodosQuery>>(
     graphqlOperation(listTodos)
   );
-  console.log("todos >>>> ", todos);
   return {
     props: {
       todos: todos?.data,
